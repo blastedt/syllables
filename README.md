@@ -97,9 +97,9 @@ Stats are determined by player level
 
 *Evaluate to (dr player, dr enemy, damage effectiveness player, d.e. Enemy, ………………..) and so on
 
-*Enemy** with size six
+*Enemy\*\* with size six
 
-*Player*
+*Player\*
 
 
 # available prompts
