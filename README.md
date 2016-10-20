@@ -38,42 +38,67 @@ The slime dropped a syllable “rho” and a staff “greatstaff of multiplicity
 #data structures
 
 ##Syllables have:
+
 *Min, max damage added
+
 *Damage multiplier to word
+
 *A linked list of additional effects added to battlefield, either beneficial or not
+
 *A target count mod. Targets are chosen randomly
+
 *A damage type (aethetic)
+
 *A name
+
 Words are combinations of syllables, usually combined in the most logical way.  Syllables are separated by spaces in parsing.
 A word is the same struct as a syllable but cast to another type for safety.
 
 
 ##Gear has
+
 *A linked list of (stats, prefixes)
+
 *Damage reduction
+
 *Max three stats
+
 *type
+
 *Rings, weapons, armor have different kinds of stats
 
 ##Enemies have
 *A random spell word they cast at you
+
 *Hp
+
 *Dr
+
 *A name
+
 *Loot - linked list of gear and syllables
+
 Stats are determined by player level		
 
 ##Players have
+
 *Hp
+
 *Name
+
 *Armor, ring, weapon, syllable inventories
+
 *Exp -> level
 
 
 ##Battleground (properties of main) has
+
 *Linked list of effects
+
 *Evaluate to (dr player, dr enemy, damage effectiveness player, d.e. Enemy, ………………..) and so on
+
 *Enemy** with size six
+
 *Player*
 
 
