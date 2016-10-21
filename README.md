@@ -4,6 +4,10 @@ Monster-fighting word-mage achieves high score.
 Idea/design document made during short hack night, coding done on own time.
 
 # general idea
+1-6 monsters appear at each point.  The player is able to cast spellwords to attack the enemy, which are combinations of syllables with different effects.  The enemy casts spellwords back, which are usually shorter.  The player is usually limited to three syllables to word, but this can be expanded by achieving high levels or with gear.  Gear is divided into armor, ring, and staves, and one of each can be equipped at once.  
+
+Monsters award points equal to player level when defeated.  Clearing the screen gives 2*enemy count*level points.  Thus if you encounter a screen with five monsters at level 11, you will receive 5*11 points for defeating monsters and 110 points for clearing the entire screen.  Enemies only appear when the screen is empty.
+
 Level increases available loot, difficulty, damage effectiveness, syllable count
 Maximum syllable count
 Random enemies come forever. Play for high score
@@ -90,6 +94,8 @@ Stats are determined by player level
 
 *Exp -> level
 
+*points
+
 
 ##Battleground (properties of main) has
 
@@ -97,9 +103,9 @@ Stats are determined by player level
 
 *Evaluate to (dr player, dr enemy, damage effectiveness player, d.e. Enemy, ………………..) and so on
 
-*Enemy\*\* with size six
+*Enemy ptr ptr with size six
 
-*Player\*
+*Player ptr
 
 
 # available prompts
