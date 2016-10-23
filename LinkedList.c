@@ -11,6 +11,7 @@ LinkedList* linked_list_create() {
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
+	return list;
 }
 
 //Make a new linked list node
@@ -19,6 +20,7 @@ LinkedListNode* linked_list_node_create() {
 	node->head = NULL;
 	node->tail = NULL;
 	node->data = NULL;
+	return node;
 }
 
 /**
@@ -67,9 +69,9 @@ void* linked_list_get(LinkedList* list, int index) {
 
 //append two linked lists
 void linked_list_append(LinkedList* a, LinkedList* b) {
-	atail = a->tail;
-	bhead = b->head;
-	btail = b->tail;
+	LinkedListNode* atail = a->tail;
+	LinkedListNode* bhead = b->head;
+	LinkedListNode* btail = b->tail;
 
 	atail->tail = bhead;
 	bhead->head = atail; //set tail of A's tail to B's head, and vice versa
