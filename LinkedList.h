@@ -25,7 +25,7 @@ LinkedList* linked_list_create();
 //creates an empty node
 LinkedListNode* linked_list_node_create();
 
-//add a data nibble to the end of a linked list
+//add a datum to the end of a linked list
 void linked_list_add(LinkedList* list, void* data);
 
 //non-destructively return the indexed element from the list 
@@ -34,6 +34,9 @@ void* linked_list_get(LinkedList* list, int index);
 
 //appends two linked lists to each other, and frees list b
 void linked_list_append(LinkedList* a, LinkedList* b);
+
+//Search for a target with a provided compare function.
+void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,const void*));
 
 //removes an element from a linked list and returns it
 void* linked_list_remove(LinkedList* list, int index);

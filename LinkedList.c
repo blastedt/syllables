@@ -83,6 +83,17 @@ void linked_list_append(LinkedList* a, LinkedList* b) {
 	free(b);			//free up the LinkedList b space
 }
 
+//Search for a target with a provided compare function.
+void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,const void*)) {
+	LinkedListNode* cur_node = list->head;
+
+	while (cur_node && cmp(cur_node->data, target)) {
+		cur_node = cur_node->tail;
+	}
+
+	return cur_node->data;
+}
+
 //Remove an element from a list and return its data
 void* linked_list_remove(LinkedList* list, int index) {
 	if (index >= list->size) {
