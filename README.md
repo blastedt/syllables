@@ -6,15 +6,21 @@ Idea/design document made during short hack night, coding done on own time.
 # general idea
 1-6 monsters appear at each point.  The player is able to cast spellwords to attack the enemy, which are combinations of syllables with different effects.  The enemy casts spellwords back, which are usually shorter.  The player is usually limited to three syllables to word, but this can be expanded by achieving high levels or with gear.  Gear is divided into armor, ring, and staves, and one of each can be equipped at once.  
 
-Monsters award points equal to player level when defeated.  Clearing the screen gives 2*enemy count*level points.  Thus if you encounter a screen with five monsters at level 11, you will receive 5*11 points for defeating monsters and 110 points for clearing the entire screen.  Enemies only appear when the screen is empty.
+Monsters award points equal to player level when defeated.  Clearing the screen gives 2x(enemy count)x(level points).  Thus if you encounter a screen with five monsters at level 11, you will receive 5*11 points for defeating monsters and 110 points for clearing the entire screen (for a total of 165).  Enemies only appear when the screen is empty.
 
-Level increases available loot, difficulty, damage effectiveness, syllable count
-Maximum syllable count
+Level increases available loot, difficulty, damage effectiveness, maximum syllable count
 Random enemies come forever. Play for high score
 
 # library information
 
 ncurses will be used. all graphics will be in terminal
+
+# general program structure
+
+MVC model:
+
+Milestone 1 and 2 will use ncurses for the view and control.  Model should be separated and library agnostic (so that other display methods could be used if desired).
+If I end up extending this further away from ncurses I will likely fork out of milestone 2 to another repo and write another view/controller file.
 
 # screen example
 
