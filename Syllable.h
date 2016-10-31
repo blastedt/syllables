@@ -24,10 +24,14 @@ typedef struct {
 
 
 Syllable* combine_syllables(LinkedList* syllables);
-
-
-char pick_targets(Syllable* word, char enemies); //use char as bitfield
+void pick_targets(Syllable* word, char* enemy_pos); 
 int roll_damage(Syllable* word);
-char* syllable_info(Syllable* syllable);
+void syllable_info(Syllable* syllable, char* buf, int size);
 Syllable* search_for_syllable(LinkedList* list, char* name);
+
+Syllable* syllable_create();
+void syllable_destroy(Syllable* syl);
+
+//Compares a syllable with a given syllable name (for use w/ linked_list_search)
+int syllable_name_compare(void* syllable, void* name);
 #endif
