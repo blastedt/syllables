@@ -36,6 +36,7 @@ void* linked_list_get(LinkedList* list, int index);
 void linked_list_append(LinkedList* a, LinkedList* b);
 
 //Search for a target with a provided compare function.
+//Function should take same type as list->head->data for first argument and same type as target for second
 void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,const void*));
 
 //removes an element from a linked list and returns it
@@ -47,6 +48,9 @@ void linked_list_free(LinkedList* list);
 
 //free a list, all of its nodes, and naively free data
 //If your data is more complicated than a single malloc, you need to deal w/ it yourself
-void linked_list_free_and_data(LinkedList* list);
+void linked_list_free_and_data_naive(LinkedList* list);
+
+//Free a list, all of its nodes, and free data with provided function
+void linked_list_free_and_data(LinkedList* list, void (*data_free)(void*))
 
 #endif

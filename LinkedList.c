@@ -138,12 +138,25 @@ void linked_list_free(LinkedList* list) {
 	free(list);
 }
 
-void linked_list_free_and_data(LinkedList* list) {
+void linked_list_free_and_data_naive(LinkedList* list) {
 	if (list->size > 0) {	//if there are elements in the list
 		LinkedListNode* cur_node = list->head;
 		while (cur_node) {	//cur_node will be nul/0 if we've run out of elements
 			LinkedListNode* next_node = cur_node->tail;
 			free(cur_node->data);
+			free(cur_node);
+			cur_node = next_node;
+		}
+	}
+	free(list);
+}
+
+void linked_list_free_and_data(LinkedList* list, void (*data_free)(void*)) {
+	if (list->size > 0) {	//if there are elements in the list
+		LinkedListNode* cur_node = list->head;
+		while (cur_node) {	//cur_node will be nul/0 if we've run out of elements
+			LinkedListNode* next_node = cur_node->tail;
+			data_free(cur_node->data);
 			free(cur_node);
 			cur_node = next_node;
 		}
