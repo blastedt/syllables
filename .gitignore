@@ -3,3 +3,4 @@ ex.txt
 *.exe
 out/
 *.cfg
+docs/
