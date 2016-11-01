@@ -25,6 +25,10 @@ typedef struct {
 
 Syllable* combine_syllables(LinkedList* syllables);				//TODO
 void pick_targets(Syllable* word, char* enemy_pos); 			//TODO
+
+/*! Rolls syllable damage.
+* Needs to be scaled by other modifiers, only does syl mods
+*/
 int roll_damage(Syllable* word);
 void syllable_info(Syllable* syllable, char* buf, int size);
 Syllable* search_for_syllable(LinkedList* list, char* name);
