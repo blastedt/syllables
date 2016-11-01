@@ -1,22 +1,21 @@
 #include "Syllable.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-
+#include "stubs.h"
 
 Syllable* syllable_create() {
 	Syllable* syl = (Syllable*) malloc(sizeof(Syllable));
-}
-
-void buff_free_stub(void* buff) {
-	//do nothing
-	//todo: need actual function to free buffs once theyre around
+	syl->effects = linked_list_create();
+	return syl;
 }
 
 void syllable_destroy(Syllable* syl) {
 	if (syl->name) free(syl->name);
-	if (syl->buffs) {
-		linked_list_free_and_data(syl->buffs, &buff_free_stub);
+	if (syl->effects) {
+		linked_list_free_and_data(syl->effects, &destruct_effect_void);
 	}
 	free(syl);
 }
@@ -26,7 +25,7 @@ void syllable_destroy(Syllable* syl) {
 int roll_damage(Syllable* word) {
 	int damage_range = word->max_damage - word->min_damage;
 	int damage = rand() % damage_range + word->min_damage;
-	damage *= damage_effectiveness;
+	damage *= word->damage_effectiveness;
 
 	return damage;
 }
@@ -42,7 +41,7 @@ void syllable_info(Syllable* syllable, char* buf, int size) {
 		name_copy, syllable->min_damage, syllable->max_damage, syllable->target_count, syllable->damage_effectiveness);
 }
 
-int syllable_name_compare(void* syllable, void* name) {
+int syllable_name_compare(const void* syllable, const void* name) {
 	return strcmp( ((Syllable*) syllable)->name, (char*) name);
 }
 
