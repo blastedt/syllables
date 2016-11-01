@@ -3,9 +3,9 @@
 
 #include "LinkedList.h"
 
-/**
-* Create a new linked list and return a pointer to it.
-**/
+/*! Create an empty linked list.
+Returns a pointer to a new malloced list.
+*/
 LinkedList* linked_list_create() {
 	LinkedList* list = (LinkedList*) malloc(sizeof(LinkedList));
 	list->head = NULL;
@@ -14,7 +14,9 @@ LinkedList* linked_list_create() {
 	return list;
 }
 
-//Make a new linked list node
+/*! Internal: create a new linked list node. 
+Do not call this function
+*/
 LinkedListNode* linked_list_node_create() {
 	LinkedListNode* node = (LinkedListNode*) malloc(sizeof(LinkedListNode));
 	node->head = NULL;
@@ -23,9 +25,8 @@ LinkedListNode* linked_list_node_create() {
 	return node;
 }
 
-/**
-* Add an element to a linked list.
-**/
+/*! Add an element to a linked list.
+*/
 void linked_list_add(LinkedList* list, void* data) {
 	LinkedListNode* new_node = linked_list_node_create();
 	new_node->data = data;
@@ -41,7 +42,8 @@ void linked_list_add(LinkedList* list, void* data) {
 	list->size = list->size + 1;
 }
 
-//Get the element at index
+/*!Get the element at index. 
+*/
 void* linked_list_get(LinkedList* list, int index) {
 	if (index >= list->size || index < 0) {
 		return NULL; //element not found
@@ -67,7 +69,9 @@ void* linked_list_get(LinkedList* list, int index) {
 
 }
 
-//append two linked lists
+/*! Append two linked lists.
+List A goes in the front.
+*/
 void linked_list_append(LinkedList* a, LinkedList* b) {
 	LinkedListNode* atail = a->tail;
 	LinkedListNode* bhead = b->head;
@@ -83,7 +87,11 @@ void linked_list_append(LinkedList* a, LinkedList* b) {
 	free(b);			//free up the LinkedList b space
 }
 
-//Search for a target with a provided compare function.
+/*! Search for a target with a provided compare function. 
+* Cmp needs to return 0 on element you search for and 1/-1 on others
+* (Standard cmp kind of deal)
+* Returns the first element that passes cmp.
+*/
 void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,const void*)) {
 	LinkedListNode* cur_node = list->head;
 
@@ -94,7 +102,10 @@ void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,
 	return cur_node->data;
 }
 
-//Remove an element from a list and return its data
+/*! Remove an element from a list and return its data. 
+* TODO: check for mem leaks, cause those are bad
+* O(n) - kind of reduced a bit, only traverses at most half the list
+*/
 void* linked_list_remove(LinkedList* list, int index) {
 	if (index >= list->size) {
 		return NULL; //element not found
@@ -125,7 +136,10 @@ void* linked_list_remove(LinkedList* list, int index) {
 	list->size = list->size - 1;
 	return data;
 }
-
+/*! Unsafe: free all nodes from a list.
+* This function orphans all data pointers!!
+* HIGH POTENTIAL FOR MEM LEAK
+*/
 void linked_list_free(LinkedList* list) {
 	if (list->size > 0) {	//if there are elements in the list
 		LinkedListNode* cur_node = list->head;
@@ -137,20 +151,17 @@ void linked_list_free(LinkedList* list) {
 	}
 	free(list);
 }
-
+/*! Frees a linked list and naively calls free on the elements.  
+* Equivalent to calling linked_list_free_and_data with &free
+*/
 void linked_list_free_and_data_naive(LinkedList* list) {
-	if (list->size > 0) {	//if there are elements in the list
-		LinkedListNode* cur_node = list->head;
-		while (cur_node) {	//cur_node will be nul/0 if we've run out of elements
-			LinkedListNode* next_node = cur_node->tail;
-			free(cur_node->data);
-			free(cur_node);
-			cur_node = next_node;
-		}
-	}
-	free(list);
+	linked_list_free_and_data_naive(list, &free);
 }
-
+/*! Frees a linked list and uses provided destructor on all elements. 
+* You can maybe kind of cast void (*) (struct foo*) 
+* to void (*) (void*) when calling?
+* TODO: test that. 
+*/
 void linked_list_free_and_data(LinkedList* list, void (*data_free)(void*)) {
 	if (list->size > 0) {	//if there are elements in the list
 		LinkedListNode* cur_node = list->head;

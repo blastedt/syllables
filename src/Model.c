@@ -6,7 +6,9 @@
 
 
 Syllable_Model* model_singleton;
-
+/*! Constructs an empty model and returns a pointer to it. 
+Must be freed/destructed when done
+*/
 Syllable_Model* model_constructor() {
 	if (model_singleton) return NULL;
 	model_singleton = (Syllable_Model*) malloc(sizeof(Syllable_Model));
@@ -19,10 +21,14 @@ Syllable_Model* model_constructor() {
 	return model_singleton;
 }
 
+/*! Destructs and frees a model and its fields. 
+If this is the singleton, remember to null the reference after.
+*/
 void model_destructor(Syllable_Model* model) {
 	//this is pretty much self explanatory, destroy all parts of the model
 	destruct_player(model->player);
 	if (model->effects) linked_list_free_and_data(model->effects, \
 		(void(*)(void*))&destruct_effect);							//cast void destruct_effect (Effect*) function to void (*) (void*)
-	//TODO: Rest of destructor
+	if (model->enemies) free(model->enemies);
+	free(model);
 }
