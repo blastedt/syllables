@@ -11,6 +11,25 @@ Monsters award points equal to player level when defeated.  Clearing the screen 
 Level increases available loot, difficulty, damage effectiveness, maximum syllable count
 Random enemies come forever. Play for high score
 
+# build/install information
+1. On unix: run ./.configure from root dir to configure makefile
+   On windows: make makefile.cfg with "ROOT = <abs. path to root dir>"
+2. run make all for tests and exe OR
+   make syllables for exe
+
+output goes to out, out/bin, out/tests
+
+probably won't compile for a while =) 
+I will put exes into release at each milestone. 
+So you don't need to build yourself. 
+
+## doc info
+
+Currently working on this. 
+Run `doxygen .doxy` to generate `docs/`. 
+
+
+
 # library information
 
 ncurses will be used. all graphics will be in terminal
