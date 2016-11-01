@@ -22,7 +22,7 @@ Syllable_Model* model_constructor() {
 void model_destructor(Syllable_Model* model) {
 	//this is pretty much self explanatory, destroy all parts of the model
 	destruct_player(model->player);
-	if (model->effects) linked_list_free_and_data(model->effects, \	
+	if (model->effects) linked_list_free_and_data(model->effects, \
 		(void(*)(void*))&destruct_effect);							//cast void destruct_effect (Effect*) function to void (*) (void*)
 	//TODO: Rest of destructor
 }
