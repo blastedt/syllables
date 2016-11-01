@@ -51,6 +51,6 @@ void linked_list_free(LinkedList* list);
 void linked_list_free_and_data_naive(LinkedList* list);
 
 //Free a list, all of its nodes, and free data with provided function
-void linked_list_free_and_data(LinkedList* list, void (*data_free)(void*))
+void linked_list_free_and_data(LinkedList* list, void (*data_free)(void*));
 
 #endif

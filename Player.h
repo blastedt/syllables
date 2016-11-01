@@ -21,7 +21,10 @@ typedef struct Player_s {
 } Player;
 
 
-void add_exp(Player* player, int exp);
-void damage_player(Player* player, int damage);
+Player* construct_player();								//TODO
+void destruct_player(Player* player);					//TODO
+
+void add_exp(Player* player, int exp);					//TODO
+void damage_player(Player* player, int damage);			//TODO
 
 #endif

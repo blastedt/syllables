@@ -22,6 +22,8 @@ MVC model:
 Milestone 1 and 2 will use ncurses for the view and control.  Model should be separated and library agnostic (so that other display methods could be used if desired).
 If I end up extending this further away from ncurses I will likely fork out of milestone 2 to another repo and write another view/controller file.
 
+Model will be a state machine controlled by an enum with as generic fxns as possible, to avoid being tied to ncurses
+
 # screen example
 
 ```
