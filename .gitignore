@@ -1,3 +1,5 @@
 ex.txt
 *.o
 *.exe
+out/
+*.cfg
