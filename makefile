@@ -1,16 +1,31 @@
-%.o: %.c
-		gcc -std=c99 -Wall -c $<
+include makefile.cfg
 
-syllables.exe: LinkedList.o Syllable.o Model.o
-		gcc -std=c99 -Wall -o $@ $^
+OUT = $(ROOT)/out
+SRC = $(ROOT)/src
+INC = $(ROOT)/include
 
-LinkedList_tests.exe: LinkedList.o LinkedList_tests.o
-		gcc -std=c99 -Wall -o $@ $^
+CFLAGS = -std=c99 -Wall -I$(INC)
 
-syllables: syllables.exe
+syllables: out outbin outtests $(OUT)/bin/syllables.exe
 
-tests: LinkedList_tests.exe
+$(OUT)/%.o: $(ROOT)/src/%.c
+		gcc $(CFLAGS) -o $@ -c $<
 
-.PHONY: clean
-clean:
-	del *.o
+$(OUT)/bin/syllables.exe: $(OUT)/LinkedList.o $(OUT)/Syllable.o $(OUT)/Model.o
+		gcc $(CFLAGS) -o $@ $^
+
+$(OUT)/tests/LinkedList_tests.exe: $(OUT)/LinkedList.o $(OUT)/LinkedList_tests.o
+		gcc $(CFLAGS) -o $@ $^
+
+
+tests: out outbin outtests $(OUT)/tests/LinkedList_tests.exe
+
+outtests:	out
+	mkdir $(OUT)/tests
+
+outbin:	out
+	mkdir $(OUT)/bin
+out:
+	mkdir $(OUT)
+
+all: out outbin syllables tests
