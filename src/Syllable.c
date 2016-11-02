@@ -17,7 +17,7 @@ Syllable* syllable_create() {
 void syllable_destroy(Syllable* syl) {
 	if (syl->name) free(syl->name);
 	if (syl->effects) {
-		linked_list_free_and_data(syl->effects, &destruct_effect_void);
+		linked_list_free_and_data(syl->effects, (void(*)(void*)) &destruct_effect);
 	}
 	free(syl);
 }
