@@ -12,9 +12,11 @@ Level increases available loot, difficulty, damage effectiveness, maximum syllab
 Random enemies come forever. Play for high score
 
 # build/install information
-1. On unix: run `./.configure` from root dir to configure makefile
-   On windows: make `makefile.cfg` with "`ROOT = <abs. path to root dir>`"
-2. run `make all` for tests and exe OR
+
+### unix
+
+1. run `./.configure` from root dir to configure makefile  
+2. run `make all` for tests and exe OR  
    `make syllables` for exe
 
 output goes to out, out/bin, out/tests
@@ -22,6 +24,14 @@ output goes to out, out/bin, out/tests
 probably won't compile for a while =) 
 I will put exes into release at each milestone. 
 So you don't need to build yourself. 
+
+### windows
+
+i recommend not using windows
+
+1. make a makefile.cfg with `ROOT = <abs path to root dir>`  
+2. fix the makefile to use windows commands instead of unix ones. that one's on you  
+3. use make  
 
 ## doc info
 
