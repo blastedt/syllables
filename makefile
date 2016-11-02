@@ -20,12 +20,14 @@ $(OUT)/tests/LinkedList_tests.exe: $(OUT)/LinkedList.o $(OUT)/LinkedList_tests.o
 
 tests: out outbin outtests $(OUT)/tests/LinkedList_tests.exe
 
-outtests:	out
-	mkdir $(OUT)/tests
+directories: outtests outbin out
 
-outbin:	out
-	mkdir $(OUT)/bin
+outtests:
+	mkdir -p $(OUT)/tests
+
+outbin:
+	mkdir -p $(OUT)/bin
 out:
-	mkdir $(OUT)
+	mkdir -p $(OUT)
 
-all: out outbin syllables tests
+all: directories syllables tests
