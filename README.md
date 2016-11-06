@@ -27,11 +27,8 @@ So you don't need to build yourself.
 
 ### windows
 
-i recommend not using windows
-
-1. make a makefile.cfg with `ROOT = <abs path to root dir>`  
-2. fix the makefile to use windows commands instead of unix ones. that one's on you  
-3. use make  
+1. `configure.win.bat`  
+2. `make -f makefile.win`
 
 ## doc info
 

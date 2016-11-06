@@ -1,0 +1,38 @@
+include makefile.win.cfg
+
+OUT = $(ROOT)\out\win
+SRC = $(ROOT)\src
+INC = $(ROOT)\include
+
+CFLAGS = -std=c99 -Wall -I$(INC)
+TESTINC = -I$(SRC)\tests\include
+
+syllables: out outbin outtests $(OUT)\bin\syllables.exe
+
+$(OUT)\%.o:	$(ROOT)\src\%.c
+		gcc $(CFLAGS) -o $@ -c $<
+
+$(OUT)\%_tests.o:	$(ROOT)\src\tests\%_tests.c
+		gcc $(CFLAGS) $(TESTINC) -o $@ -c $<
+
+$(OUT)\bin\syllables.exe: $(OUT)\LinkedList.o $(OUT)\Syllable.o $(OUT)\Model.o
+		gcc $(CFLAGS) -o $@ $^
+
+$(OUT)\tests\%_tests.exe:	$(OUT)\%.o $(OUT)\%_tests.o
+		gcc $(CFLAGS) -o $@ $^
+
+$(OUT)\tests\LinkedList_tests.exe: $(OUT)\LinkedList.o $(OUT)\LinkedList_tests.o
+		gcc $(CFLAGS) -o $@ $^
+
+tests: out outbin outtests $(OUT)\tests\LinkedList_tests.exe $(OUT)\tests\Syllable_tests.exe
+
+directories: outtests outbin out
+
+outtests:
+	-mkdir $(OUT)\tests >nul 2>nul
+outbin:
+	-mkdir $(OUT)\bin >nul 2>nul
+out:
+	-mkdir $(OUT) >nul 2>nul
+
+all: directories syllables tests
