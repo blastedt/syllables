@@ -5,29 +5,40 @@ SRC = $(ROOT)/src
 INC = $(ROOT)/include
 
 CFLAGS = -std=c99 -Wall -I$(INC)
+TESTINC = -I$(SRC)/tests/include
 
-syllables: out outbin outtests $(OUT)/bin/syllables.exe
+.PHONY: syllables
+syllables: directories $(OUT)/bin/syllables.exe
+
+$(OUT)/%_tests.o:	$(ROOT)/src/tests/%_tests.c
+		gcc $(CFLAGS) $(TESTINC) -o $@ -c $<
 
 $(OUT)/%.o: $(ROOT)/src/%.c
 		gcc $(CFLAGS) -o $@ -c $<
 
-$(OUT)/bin/syllables.exe: $(OUT)/LinkedList.o $(OUT)/Syllable.o $(OUT)/Model.o
+$(OUT)/bin/syllables.exe:	$(OUT)/LinkedList.o $(OUT)/Syllable.o $(OUT)/Model.o
+		gcc $(CFLAGS) -o $@ $^
+
+$(OUT)/tests/%_tests.exe:	$(OUT)/%.o $(OUT)/%_tests.o
 		gcc $(CFLAGS) -o $@ $^
 
 $(OUT)/tests/LinkedList_tests.exe: $(OUT)/LinkedList.o $(OUT)/LinkedList_tests.o
 		gcc $(CFLAGS) -o $@ $^
 
+.PHONY: tests
+tests: directories $(OUT)/tests/LinkedList_tests.exe $(OUT)/tests/Syllable_tests.exe
 
-tests: out outbin outtests $(OUT)/tests/LinkedList_tests.exe
+.PHONY: directories
+directories: out/tests out/bin out
 
-directories: outtests outbin out
-
-outtests:
+$(OUT)/tests:
 	mkdir -p $(OUT)/tests
 
-outbin:
+$(OUT)/bin:
 	mkdir -p $(OUT)/bin
-out:
+
+$(OUT):
 	mkdir -p $(OUT)
 
+.PHONY: all
 all: directories syllables tests
