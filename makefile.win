@@ -1,41 +1,43 @@
 include makefile.win.cfg
 
-OUT = $(ROOT)/out/win
-SRC = $(ROOT)/src
-INC = $(ROOT)/include
+OUT = $(ROOT)\out
+OUTTESTS = $(OUT)\tests
+OUTBIN = $(OUT)\bin
+SRC = $(ROOT)\src
+SRCTESTS = $(SRC)\tests
+INC = $(ROOT)\include
+TESTINC = -I$(SRC)\tests\include
 
+CC = gcc
 CFLAGS = -std=c99 -Wall -I$(INC)
-TESTINC = -I$(SRC)/tests/include
+
 
 .PHONY: syllables
-syllables: directories $(OUT)/bin/syllables.exe
+syllables: directories $(OUTBIN)/syllables.exe
 
-$(OUT)/%_tests.o:	$(ROOT)/src/tests/%_tests.c
-		gcc $(CFLAGS) $(TESTINC) -o $@ -c $<
+$(OUT)/%_tests.o:	$(SRCTESTS)/%_tests.c
+		$(CC) $(CFLAGS) $(TESTINC) -o $@ -c $<
 
-$(OUT)/%.o:	$(ROOT)/src/%.c
-		gcc $(CFLAGS) -o $@ -c $<
+$(OUT)/%.o: $(SRC)/%.c
+		$(CC) $(CFLAGS) -o $@ -c $<
 
-$(OUT)/bin/syllables.exe:	$(OUT)/LinkedList.o $(OUT)/Syllable.o $(OUT)/Model.o
-		gcc $(CFLAGS) -o $@ $^
+$(OUTBIN)/syllables.exe:	$(OUT)/LinkedList.o $(OUT)/Syllable.o $(OUT)/Model.o
+		$(CC) $(CFLAGS) -o $@ $^
 
-$(OUT)/tests/%_tests.exe:	$(OUT)/%.o $(OUT)/%_tests.o
-		gcc $(CFLAGS) -o $@ $^
-
-$(OUT)/tests/LinkedList_tests.exe: $(OUT)/LinkedList.o $(OUT)/LinkedList_tests.o
-		gcc $(CFLAGS) -o $@ $^
+$(OUTTESTS)/%_tests.exe:	$(OUT)/%.o $(OUT)/%_tests.o
+		$(CC) $(CFLAGS) -o $@ $^
 
 .PHONY: tests
-tests: directories $(OUT)/tests/LinkedList_tests.exe $(OUT)/tests/Syllable_tests.exe
+tests: directories $(OUTTESTS)/LinkedList_tests.exe $(OUTTESTS)/Syllable_tests.exe
 
 .PHONY: directories
-directories: $(OUT) $(OUT)/tests $(OUT)/bin
+directories: $(OUTTESTS) $(OUTBIN) $(OUT)
 
-$(OUT)/tests:
-	mkdir $(OUT)/tests
+$(OUTTESTS):
+	mkdir $(OUTTESTS)
 
-$(OUT)/bin:
-	mkdir $(OUT)/bin
+$(OUTBIN):
+	mkdir $(OUTBIN)
 
 $(OUT):
 	mkdir $(OUT)
