@@ -1,25 +1,35 @@
+/**
+*		@file LinkedList.h
+*		@brief Provides a linked list implementation
+*	
+*		@author		Tim Rollet
+*/
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 #include <stdlib.h>
-/**
-* Provides a Linked List implementation.  LinkedListNode should not be used by other files.
-* Justification for use: it is very easy and fast to append and resize linked lists.
-* Loot lists will routinely be appended to the player's inventories, so this is ideal.
-**/
+/** Linked list node container.
+*	Should be used internally to LinkedList only.
+*/
 typedef struct LinkedListNode_s {
-	struct LinkedListNode_s * head;
-	struct LinkedListNode_s * tail;
-	void* data;
+	struct LinkedListNode_s * head;		/**< element before this node in the list */
+	struct LinkedListNode_s * tail;		/**< element after this node in the list */
+	void* data;							/**< data contained within the node */
 } LinkedListNode;
 
+/**	Linked list that stores arbitrary data.
+*	Use accessor methods only.
+*/
 typedef struct LinkedList_s {
-	LinkedListNode* head;
-	LinkedListNode* tail;
-	int size;
+	LinkedListNode* head;				/**< first element of the list */
+	LinkedListNode* tail;				/**< last element of the list */
+	int size;							/**< total number of elements in the list */
 } LinkedList;
 
 
-//creates an empty list
+/** Create an empty linked list.
+Returns a pointer to a new malloced list.
+*/
 LinkedList* linked_list_create();
 
 //creates an empty node
