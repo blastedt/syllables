@@ -1,4 +1,6 @@
 #include "Syllable.h"
+#include "util.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -104,3 +106,4 @@ Syllable* combine_syllables(LinkedList* syllables) {
 	strcat(final_name, "!");
 	return word;
 }
+

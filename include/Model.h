@@ -26,7 +26,7 @@ typedef struct Syllable_Model_S {
 	LinkedList* effects;			/**< Active battlefield effects */
 	Enemy* enemies;					/**< Active enemies.  MAX_ENEMY_COUNT size array */
 	int score;						/**< How many points the player has earned in this game */
-	PLAY_STATE playing;					/**< Is the game actively in progress (1), finished (-1), or not yet started (0)? */
+	PLAY_STATE playing;				/**< Is the game actively in progress (1), finished (-1), or not yet started (0)? */
 } SyllableModel;
 
 /** @brief What state the game is in
@@ -66,5 +66,7 @@ void new_game (char* name);
 void info (INFO_TYPE type, int selector, char* buf, int size);
 void cast (LinkedList* syllables);
 void equip (INVENTORY_TYPE type, int selector);
+
+int* pick_syllable_targets(Syllable* word, Enemy* enemy_arr);
 
 #endif

@@ -31,8 +31,7 @@ typedef struct {
 
 
 
-Syllable* combine_syllables(LinkedList* syllables);				//TODO
-void pick_targets(Syllable* word, char* enemy_pos); 			//TODO
+Syllable* combine_syllables(LinkedList* syllables);
 
 Syllable* copy_syllable(Syllable* syl);
 int roll_damage(Syllable* word);
