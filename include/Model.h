@@ -1,3 +1,10 @@
+/**
+*			@file 	Model.h
+*			@author Tim Rollet
+*			@date 	11/6/2016
+*			@brief	Stores and updates model for Syllables game.
+*/
+
 #ifndef SYLLABLES_MODEL_H
 #define SYLLABLES_MODEL_H
 
@@ -10,22 +17,35 @@
 #include "stubs.h"
 
 
-#define MAX_ENEMY_COUNT 6
+#define MAX_ENEMY_COUNT 6			/**< The maximum number of enemies on the battlefield at once */
 
+/** @brief Holds vital information about the Syllable game
+*/
 typedef struct Syllable_Model_S {
-	Player* player;
-	LinkedList* effects;
-	Enemy* enemies;
-	int score;
-	int playing;
-} Syllable_Model;
+	Player* player;					/**< Pointer to the player singleton */
+	LinkedList* effects;			/**< Active battlefield effects */
+	Enemy* enemies;					/**< Active enemies.  MAX_ENEMY_COUNT size array */
+	int score;						/**< How many points the player has earned in this game */
+	PLAY_STATE playing;					/**< Is the game actively in progress (1), finished (-1), or not yet started (0)? */
+} SyllableModel;
 
+/** @brief What state the game is in
+*/
+typedef enum PLAY_STATE_E {
+	NEED_NAME,
+	PLAYING,
+	DEAD
+}	PLAY_STATE
+
+/** @brief	Holds information about what kind of inventory is being accessed
+*/
 typedef enum INVENTORY_TYPE_E {
 	ARMOR,
 	RING,
 	WEAPON
 } INVENTORY_TYPE;
-
+/** @brief	Holds information about what kind of information is requested
+*/
 typedef enum INFO_TYPE_E {
 	ARMOR_INFO,
 	RING_INFO,
@@ -42,10 +62,9 @@ void destruct_singleton();
 Syllable_Model* get_model_singleton();		//INTERNAL ACCESS
 
 //PUBLIC METHODS
-void init_model (char* name);
+void new_game (char* name);
 void info (INFO_TYPE type, int selector, char* buf, int size);
 void cast (LinkedList* syllables);
 void equip (INVENTORY_TYPE type, int selector);
-Syllable_Model* get_model_copy();			//USE THIS METHOD FOR EXTERNAL ACCESS, RETURNS COPY (PLZ FREE)
 
 #endif
