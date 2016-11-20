@@ -20,6 +20,22 @@ typedef struct Enemy_s {
 	int damage_reduction;
 	LinkedList* loot;
 	int	alive;
+	int xp;
 } Enemy;
+
+/**
+*	@brief	Damage an enemy the specified amount.
+*			Applies the damage reduction for you.
+*			Side effect: sets alive field in enemy struct.
+*	@param	damage	The amount of damage done by the spellword to this enemy, before enemy DR.
+*	@return	0 if enemy is dead after damage, 1 if enemy is still alive.
+*	@todo
+*/
+int damage_enemy(Enemy* enemy, int damage);
+
+/**
+*	@brief	Destruct an enemy struct and its members.
+*/
+void destruct_enemy(Enemy* enemy);
 
 #endif
