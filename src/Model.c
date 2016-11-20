@@ -6,6 +6,7 @@
 #include "LinkedList.h"
 #include "Syllable.h"
 #include "stubs.h"
+#include "util.h"
 
 /**
 *		@brief The singleton containing the only model info.
@@ -19,11 +20,11 @@ SyllableModel* model_singleton;
 SyllableModel* model_constructor() {
 	if (model_singleton) return NULL;
 	model_singleton = (SyllableModel*) malloc(sizeof(SyllableModel));
-	model_singleton->player = construct_player();
+	model_singleton->player = NULL;
 	model_singleton->effects = linked_list_create();
 	model_singleton->enemies = malloc(sizeof(Enemy) * MAX_ENEMY_COUNT);
 	model_singleton->score = 0;
-	model_singleton->playing = PLAY_STATE.NEED_NAME;
+	model_singleton->playing = STATE_NEED_NAME;
 
 	return model_singleton;
 }
@@ -62,9 +63,9 @@ SyllableModel* get_model_singleton() {
 */
 void new_game (char* name) {
 	srand(time(NULL));
-	model->player = new_player(name);
-	model->playing = PLAY_STATE.PLAYING;
-	model->score = 0;
+	model_singleton->player = construct_player(name);
+	model_singleton->playing = STATE_PLAYING;
+	model_singleton->score = 0;
 }
 
 /**	@brief	Pick the targets for a spellword.
@@ -76,8 +77,9 @@ int* pick_syllable_targets(Enemy* enemy_arr) {
 	int* target_choices = malloc(sizeof(int) * MAX_ENEMY_COUNT);
 	int t_i = 0;
 	for (int e_i = 0; e_i < MAX_ENEMY_COUNT; e_i++) {
-		if (enemy_arr[e_i]->alive) {
+		if (enemy_arr[e_i].alive) {
 			target_choices[t_i] = e_i;
+			t_i++;
 		}
 	}
 	//after that t_i is the size of target_choices and target_choices 0...t_i is filled with enemy positions
@@ -94,11 +96,39 @@ int* pick_syllable_targets(Enemy* enemy_arr) {
 *	@param	syllables	The spellword to cast
 */
 void cast(LinkedList* syllables) {
-	/**< @todo propagate effects */
-	/**< @todo cast a spell */
-	Syllable* spellword = combine_syllables(syllables);
+	/** @todo propagate effects */
 	
-	/**< @todo check for enemy death */
-	/**< @todo cast enemy spells */
-	/**< @todo check for player death */
+	/** cast a spell */
+	Syllable* spellword = combine_syllables(syllables);
+	int* targets = pick_syllable_targets(model_singleton->enemies);
+
+	for (int target_num = 0; target_num < spellword->target_count; target_num++) {
+		/* for each target */
+		Enemy* target = &model_singleton->enemies[target_num];
+		int damage = roll_damage(spellword);
+		int alive = damage_enemy(target, damage);
+		if (!alive) {
+			/** killed enemy effects */
+			add_exp(model_singleton->player, target->xp);
+		}
+	}
+
+	free(targets);
+
+	int living_enemies = 0;
+
+	for (int e_i = 0; e_i < MAX_ENEMY_COUNT; e_i++) {
+		Enemy* enemy = &model_singleton->enemies[e_i];
+		if (!enemy->alive) continue;
+		living_enemies++;
+		/** Cast enemy spell */
+		Syllable* word = enemy->spellword;
+		if (word->target_count > 0) {		//enemies with ineffective words are out of luck
+			int damage = roll_damage(word);
+			damage_player(model_singleton->player, damage);
+
+		}
+		/** @todo	Add enemy spelleffects. */
+	}
+	/** @todo check for player death */
 }

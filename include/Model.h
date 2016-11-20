@@ -67,6 +67,6 @@ void info (INFO_TYPE type, int selector, char* buf, int size);
 void cast (LinkedList* syllables);
 void equip (INVENTORY_TYPE type, int selector);
 
-int* pick_syllable_targets(Syllable* word, Enemy* enemy_arr);
+int* pick_syllable_targets(Enemy* enemy_arr);
 
 #endif
