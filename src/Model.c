@@ -30,7 +30,7 @@ SyllableModel* model_constructor() {
 }
 
 /** Destructs and frees a model and its fields. 
-If this is the singleton, remember to null the reference after.
+*	If this is the singleton, remember to null the reference after.
 */
 void model_destructor(SyllableModel* model) {
 	//this is pretty much self explanatory, destroy all parts of the model
@@ -96,6 +96,9 @@ int* pick_syllable_targets(Enemy* enemy_arr) {
 *	@param	syllables	The spellword to cast
 */
 void cast(LinkedList* syllables) {
+	if (! model_singleton->state == STATE_PLAYING) {
+		return;
+	}
 	/** @todo propagate effects */
 	
 	/** cast a spell */
@@ -116,7 +119,7 @@ void cast(LinkedList* syllables) {
 	free(targets);
 
 	int living_enemies = 0;
-
+	int player_alive = 1;
 	for (int e_i = 0; e_i < MAX_ENEMY_COUNT; e_i++) {
 		Enemy* enemy = &model_singleton->enemies[e_i];
 		if (!enemy->alive) continue;
@@ -125,10 +128,13 @@ void cast(LinkedList* syllables) {
 		Syllable* word = enemy->spellword;
 		if (word->target_count > 0) {		//enemies with ineffective words are out of luck
 			int damage = roll_damage(word);
-			damage_player(model_singleton->player, damage);
-
+			player_alive = damage_player(model_singleton->player, damage);
+			if (!player_alive) break;
 		}
 		/** @todo	Add enemy spelleffects. */
 	}
-	/** @todo check for player death */
+	/** check for player death */
+	if (!player_alive) {
+		model_singleton->state = STATE_DEAD;
+	}
 }
