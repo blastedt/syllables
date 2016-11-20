@@ -21,10 +21,14 @@ typedef struct Player_s {
 } Player;
 
 
-Player* construct_player();								//TODO
+Player* construct_player(char* name);					//TODO
 void destruct_player(Player* player);					//TODO
 
 void add_exp(Player* player, int exp);					//TODO
-void damage_player(Player* player, int damage);			//TODO
+/**
+*	@brief	Damage the player with given damage.
+*	@return	1 if player is alive, 0 if dead.
+*/
+int damage_player(Player* player, int damage);			//TODO
 
 #endif
