@@ -19,6 +19,14 @@
 
 #define MAX_ENEMY_COUNT 6			/**< The maximum number of enemies on the battlefield at once */
 
+/** @brief What state the game is in
+*/
+typedef enum {
+	STATE_NEED_NAME,
+	STATE_PLAYING,
+	STATE_DEAD
+} PLAY_STATE;
+
 /** @brief Holds vital information about the Syllable game
 */
 typedef struct Syllable_Model_S {
@@ -26,27 +34,19 @@ typedef struct Syllable_Model_S {
 	LinkedList* effects;			/**< Active battlefield effects */
 	Enemy* enemies;					/**< Active enemies.  MAX_ENEMY_COUNT size array */
 	int score;						/**< How many points the player has earned in this game */
-	PLAY_STATE playing;				/**< Is the game actively in progress (1), finished (-1), or not yet started (0)? */
+	PLAY_STATE playing;	
 } SyllableModel;
-
-/** @brief What state the game is in
-*/
-typedef enum PLAY_STATE_E {
-	NEED_NAME,
-	PLAYING,
-	DEAD
-}	PLAY_STATE
 
 /** @brief	Holds information about what kind of inventory is being accessed
 */
-typedef enum INVENTORY_TYPE_E {
+typedef enum {
 	ARMOR,
 	RING,
 	WEAPON
 } INVENTORY_TYPE;
 /** @brief	Holds information about what kind of information is requested
 */
-typedef enum INFO_TYPE_E {
+typedef enum {
 	ARMOR_INFO,
 	RING_INFO,
 	WEAPON_INFO,
@@ -54,12 +54,12 @@ typedef enum INFO_TYPE_E {
 	EFFECTS_INFO
 } INFO_TYPE;
 
-Syllable_Model* model_constructor();
-void model_destructor(Syllable_Model* model);
+SyllableModel* model_constructor();
+void model_destructor(SyllableModel* model);
 void destruct_singleton();
 
 
-Syllable_Model* get_model_singleton();		//INTERNAL ACCESS
+SyllableModel* get_model_singleton();		//INTERNAL ACCESS
 
 //PUBLIC METHODS
 void new_game (char* name);
