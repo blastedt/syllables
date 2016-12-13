@@ -54,7 +54,7 @@ void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,
 *	@param	list	the list to map
 *	@param	func	the function to run on every element
 */
-void linked_list_map(LinkedList* list, void* (*) (void*) func);
+void linked_list_map(LinkedList* list, void* (*func) (void*));
 
 //removes an element from a linked list and returns it
 void* linked_list_remove(LinkedList* list, int index);
