@@ -102,6 +102,19 @@ void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,
 	return cur_node->data;
 }
 
+/**
+*       @brief  Run a function on every element and update the list.
+*       @param  list    the list to map
+*       @param  func    the function to run on every element
+*/
+void linked_list_map(LinkedList* list, void* (*) (void*) func) {
+	for (LinkedListNode* node = list->head; node; node = node->tail) {
+		node->data = func(node->data);
+	}
+}
+
+
+
 /** Remove an element from a list and return its data. 
 * TODO: check for mem leaks, cause those are bad
 * O(n) - kind of reduced a bit, only traverses at most half the list

@@ -49,6 +49,13 @@ void linked_list_append(LinkedList* a, LinkedList* b);
 //Function should take same type as list->head->data for first argument and same type as target for second
 void* linked_list_search(LinkedList* list, void* target, int (*cmp)(const void*,const void*));
 
+/**
+*	@brief	Run a function on every element and update the list.
+*	@param	list	the list to map
+*	@param	func	the function to run on every element
+*/
+void linked_list_map(LinkedList* list, void* (*) (void*) func);
+
 //removes an element from a linked list and returns it
 void* linked_list_remove(LinkedList* list, int index);
 
