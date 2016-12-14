@@ -6,7 +6,6 @@
 #include "LinkedList.h"
 #include "Syllable.h"
 #include "stubs.h"
-#include "util.h"
 
 /**
 *		@brief The singleton containing the only model info.
@@ -138,3 +137,7 @@ void cast(LinkedList* syllables) {
 		model_singleton->state = STATE_DEAD;
 	}
 }
+
+#pragma region Observable
+
+#pragma endregion Observable

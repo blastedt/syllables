@@ -67,6 +67,12 @@ void info (INFO_TYPE type, int selector, char* buf, int size);
 void cast (LinkedList* syllables);
 void equip (INVENTORY_TYPE type, int selector);
 
+void model_notify();
+int add_observer(SyllableModel* (*notify) (SyllableModel*));
+void remove_observer(SyllableModel* (*notify) (SyllableModel*));
+SyllableModel* copy_model();
+
+
 int* pick_syllable_targets(Enemy* enemy_arr);
 
 #endif
